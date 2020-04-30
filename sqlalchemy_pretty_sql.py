@@ -3,6 +3,7 @@ import sqlparse
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
+from IPython import get_ipython
 from IPython.display import display, HTML
 
 
@@ -33,3 +34,8 @@ def pretty_sql(query):
         )
     )
     display(HTML(highlight(formatted_sql, lexer, formatter)))
+
+
+html_formatter = get_ipython().display_formatter.formatters['text/html']
+html_formatter.for_type_by_name('sqlalchemy.orm.query', 'Query', pretty_sql)
+
