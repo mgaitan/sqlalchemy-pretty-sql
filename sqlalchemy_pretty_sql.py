@@ -11,7 +11,7 @@ def pretty_sql(query):
     engine = query.session.get_bind()
     dialect = type(engine.dialect).__name__.lower()
 
-    sql = str(query.statement.compile(dialect=engine.dialect))
+    sql = str(query.statement.compile(dialect=engine.dialect, compile_kwargs={"literal_binds": True}))
     formatted_sql = sqlparse.format(sql, reindent=True, keyword_case="upper")
 
     if dialect.startswith("mysql"):
