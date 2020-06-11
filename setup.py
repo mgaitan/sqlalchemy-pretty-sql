@@ -9,23 +9,14 @@ try:
 except ImportError:
     from distutils.core import setup
 
-version = "0.3.0"
+version = "0.4.0"
 
 if sys.argv[-1] == 'publish':
-    try:
-        import wheel
-    except ImportError:
-        raise ImportError("Fix: pip install wheel")
-    os.system('python setup.py sdist bdist_wheel upload')
-    print("You probably want to also tag the version now:")
-    print("  git tag -a %s -m 'version %s'" % (version, version))
-    print("  git push --tags")
-    sys.exit()
-
-if sys.argv[-1] == 'tag':
     print("Tagging the version on github:")
     os.system("git tag -a %s -m 'version %s'" % (version, version))
     os.system("git push --tags")
+    os.system('python setup.py sdist bdist_wheel')
+    os.system('twine upload dist/*')
     sys.exit()
 
 readme = open('README.rst').read()
