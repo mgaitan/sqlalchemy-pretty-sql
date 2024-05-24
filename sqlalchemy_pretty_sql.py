@@ -46,8 +46,10 @@ def pretty_sql(query, formatter="html"):
 
 html_formatter = get_ipython().display_formatter.formatters['text/html']
 html_formatter.for_type_by_name('sqlalchemy.orm.query', 'Query', pretty_sql)
+html_formatter.for_type_by_name('sqlalchemy.sql.selectable', 'Select', pretty_sql)
 
 plain_formatter = get_ipython().display_formatter.formatters['text/plain']
 plain_formatter.for_type_by_name('sqlalchemy.orm.query', 'Query', pretty_term)
+plain_formatter.for_type_by_name('sqlalchemy.sql.selectable', 'Select', pretty_term)
 
 
